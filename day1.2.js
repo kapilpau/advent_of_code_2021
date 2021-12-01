@@ -1,5 +1,50 @@
 const fs = require('fs');
 
+class Node {
+    constructor(val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+
+class Sum {
+
+    constructor() {
+        this.sum = 0;
+        this.first = null;
+        this.last = null;
+        this.size = 0;
+    }
+
+    push(val) {
+        const newNode = new Node(val);
+        if (this.size === 3) {
+            this.last.next = newNode;
+            this.last = this.last.next;
+            this.sum = this.sum + val - this.first.val;
+            this.first = this.first.next;
+        } else {
+            if (this.size === 0) {
+                this.sum = val;
+                this.first = newNode;
+                this.size++;
+            } else if (this.size === 1) {
+                this.sum += val;
+                this.first.next = newNode;
+                this.size++;
+            } else {
+                this.sum += val;
+                this.first.next.next = newNode;
+                this.last = this.first.next.next;
+                this.size++;
+            }
+        }
+
+        return this;
+    }
+
+}
+
 let input;
 
 try {
@@ -10,14 +55,15 @@ try {
     process.exit(1);
 }
 
-let prev = parseInt(input[0])
+let sum = new Sum();
+sum.push(parseInt(input[0]))
+sum.push(parseInt(input[1]))
+sum.push(parseInt(input[2]))
 let count = 0;
 
-for (let i = 1; i<input.length; i++) {
-    const curr = parseInt(input[i])
-    if (curr > prev)
+for (let i = 3; i<input.length; i++) {
+    if (sum.sum < sum.push(parseInt(input[i])).sum)
         count++;
-    prev = curr
 }
 
 console.log("Answer:", count)
