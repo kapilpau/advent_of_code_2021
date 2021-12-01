@@ -3,7 +3,7 @@ const fs = require('fs');
 let input;
 
 try {
-    input = fs.readFileSync("./input1.txt", "utf8").split("\n");
+    input = fs.readFileSync("./inputs/input1.txt", "utf8").split("\n");
 } catch (e) {
     console.error("Error reading in file")
     console.error(e);
